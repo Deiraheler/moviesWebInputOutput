@@ -1,0 +1,367 @@
+[33mcommit 3ac9d2d4aff5f2bf52d17bbc8169efec19e2198c[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Deiraheler <53556704+Deiraheler@users.noreply.github.com>
+Date:   Mon Feb 19 16:03:23 2024 +0000
+
+    Movies Web init
+
+[1mdiff --git a/img.png b/img.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..91d9d19[m
+Binary files /dev/null and b/img.png differ
+[1mdiff --git a/package-lock.json b/package-lock.json[m
+[1mindex 9026abd..f1d6e72 100644[m
+[1m--- a/package-lock.json[m
+[1m+++ b/package-lock.json[m
+[36m@@ -18,6 +18,7 @@[m
+         "@angular/platform-server": "^17.2.0",[m
+         "@angular/router": "^17.2.0",[m
+         "@angular/ssr": "^17.2.0",[m
+[32m+[m[32m        "bootstrap": "^5.3.2",[m
+         "express": "^4.18.2",[m
+         "rxjs": "~7.8.0",[m
+         "tslib": "^2.3.0",[m
+[36m@@ -3130,6 +3131,16 @@[m
+         "node": ">=14"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/@popperjs/core": {[m
+[32m+[m[32m      "version": "2.11.8",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz",[m
+[32m+[m[32m      "integrity": "sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==",[m
+[32m+[m[32m      "peer": true,[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "type": "opencollective",[m
+[32m+[m[32m        "url": "https://opencollective.com/popperjs"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/@rollup/rollup-android-arm-eabi": {[m
+       "version": "4.12.0",[m
+       "resolved": "https://registry.npmjs.org/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.12.0.tgz",[m
+[36m@@ -4309,6 +4320,24 @@[m
+       "resolved": "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz",[m
+       "integrity": "sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww=="[m
+     },[m
+[32m+[m[32m    "node_modules/bootstrap": {[m
+[32m+[m[32m      "version": "5.3.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.3.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-D32nmNWiQHo94BKHLmOrdjlL05q1c8oxbtBphQFb9Z5to6eGRDCm0QgeaZ4zFBHzfg2++rqa2JkqCcxDy0sH0g==",[m
+[32m+[m[32m      "funding": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "github",[m
+[32m+[m[32m          "url": "https://github.com/sponsors/twbs"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "type": "opencollective",[m
+[32m+[m[32m          "url": "https://opencollective.com/bootstrap"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "peerDependencies": {[m
+[32m+[m[32m        "@popperjs/core": "^2.11.8"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/brace-expansion": {[m
+       "version": "1.1.11",[m
+       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",[m
+[1mdiff --git a/package.json b/package.json[m
+[1mindex d89b1f1..0ca20da 100644[m
+[1m--- a/package.json[m
+[1m+++ b/package.json[m
+[36m@@ -21,6 +21,7 @@[m
+     "@angular/platform-server": "^17.2.0",[m
+     "@angular/router": "^17.2.0",[m
+     "@angular/ssr": "^17.2.0",[m
+[32m+[m[32m    "bootstrap": "^5.3.2",[m
+     "express": "^4.18.2",[m
+     "rxjs": "~7.8.0",[m
+     "tslib": "^2.3.0",[m
+[36m@@ -41,4 +42,4 @@[m
+     "karma-jasmine-html-reporter": "~2.1.0",[m
+     "typescript": "~5.3.2"[m
+   }[m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/app/add-movie/add-movie.component.html b/src/app/add-movie/add-movie.component.html[m
+[1mnew file mode 100644[m
+[1mindex 0000000..641c831[m
+[1m--- /dev/null[m
+[1m+++ b/src/app/add-movie/add-movie.component.html[m
+[36m@@ -0,0 +1,24 @@[m
+[32m+[m[32m<div class="row bg-light">[m
+[32m+[m[32m  <div class="col-sm-6">[m
+[32m+[m[32m    <form>[m
+[32m+[m[32m      <fieldset class="form-group">[m
+[32m+[m[32m        <legend>Add movie</legend>[m
+[32m+[m[32m        <div class="form-group">[m
+[32m+[m[32m          <label for="title">Movie Title</label>[m
+[32m+[m[32m          <input name="title" class="form-control" placeholder="Enter movie title" #movietitle>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m        <div class="form-group">[m
+[32m+[m[32m          <label for="director">Director Name</label>[m
+[32m+[m[32m          <input name="director" class="form-control" placeholder="Enter directory name" #moviedirector>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m        <div class="form-group">[m
+[32m+[m[32m          <label for="year">Year</label>[m
+[32m+[m[32m          <input name="year" class="form-control" placeholder="Enter year of release" #movieyear>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m        <div class="mt-3 mb-3">[m
+[32m+[m[32m          <button (click)="addNewMovie(movietitle, moviedirector, movieyear)" class="btn btn-primary">Add</button>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m      </fieldset>[m
+[32m+[m[32m    </form>[m
+[32m+[m[32m  </div>[m
+[32m+[m[32m</div>[m
+[1mdiff --git a/src/app/add-movie/add-movie.component.sass b/src/app/add-movie/add-movie.component.sass[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e69de29[m
+[1mdiff --git a/src/app/add-movie/add-movie.component.spec.ts b/src/app/add-movie/add-movie.component.spec.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..70281da[m
+[1m--- /dev/null[m
+[1m+++ b/src/app/add-movie/add-movie.component.spec.ts[m
+[36m@@ -0,0 +1,23 @@[m
+[32m+[m[32mimport { ComponentFixture, TestBed } from '@angular/core/testing';[m
+[32m+[m
+[32m+[m[32mimport { AddMovieComponent } from './add-movie.component';[m
+[32m+[m
+[32m+[m[32mdescribe('AddMovieComponent', () => {[m
+[32m+[m[32m  let component: AddMovieComponent;[m
+[32m+[m[32m  let fixture: ComponentFixture<AddMovieComponent>;[m
+[32m+[m
+[32m+[m[32m  beforeEach(async () => {[m
+[32m+[m[32m    await TestBed.configureTestingModule({[m
+[32m+[m[32m      imports: [AddMovieComponent][m
+[32m+[m[32m    })[m
+[32m+[m[32m    .compileComponents();[m
+[32m+[m[41m    [m
+[32m+[m[32m    fixture = TestBed.createComponent(AddMovieComponent);[m
+[32m+[m[32m    component = fixture.componentInstance;[m
+[32m+[m[32m    fixture.detectChanges();[m
+[32m+[m[32m  });[m
+[32m+[m
+[32m+[m[32m  it('should create', () => {[m
+[32m+[m[32m    expect(component).toBeTruthy();[m
+[32m+[m[32m  });[m
+[32m+[m[32m});[m
+[1mdiff --git a/src/app/add-movie/add-movie.component.ts b/src/app/add-movie/add-movie.component.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..399bb88[m
+[1m--- /dev/null[m
+[1m+++ b/src/app/add-movie/add-movie.component.ts[m
+[36m@@ -0,0 +1,19 @@[m
+[32m+[m[32mimport { Component } from '@angular/core';[m
+[32m+[m[32mimport { MovieServiceService } from "../services/movie-service.service";[m
+[32m+[m
+[32m+[m[32m@Component({[m
+[32m+[m[32m  selector: 'app-add-movie',[m
+[32m+[m[32m  standalone: true,[m
+[32m+[m[32m  imports: [],[m
+[32m+[m[32m  templateUrl: './add-movie.component.html',[m
+[32m+[m[32m  styleUrl: './add-movie.component.sass'[m
+[32m+[m[32m})[m
+[32m+[m[32mexport class AddMovieComponent {[m
+[32m+[m[32m  constructor(private movieService:MovieServiceService) {[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  addNewMovie(movietitle:HTMLInputElement, moviedirector:HTMLInputElement, movieyear:HTMLInputElement):boolean {[m
+[32m+[m[32m    this.movieService.addMovie(movietitle.value, moviedirector.value, movieyear.value);[m
+[32m+[m[32m    return false;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/app/app.component.html b/src/app/app.component.html[m
+[1mindex 36093e1..6784ba4 100644[m
+[1m--- a/src/app/app.component.html[m
+[1m+++ b/src/app/app.component.html[m
+[36m@@ -1,336 +1,5 @@[m
+[31m-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->[m
+[31m-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->[m
+[31m-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->[m
+[31m-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->[m
+[31m-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->[m
+[31m-<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->[m
+[31m-<!-- * * * * * * * to get started with your project! * * * * * * * -->[m
+[31m-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->[m
+[31m-[m
+[31m-<style>[m
+[31m-  :host {[m
+[31m-    --bright-blue: oklch(51.01% 0.274 263.83);[m
+[31m-    --electric-violet: oklch(53.18% 0.28 296.97);[m
+[31m-    --french-violet: oklch(47.66% 0.246 305.88);[m
+[31m-    --vivid-pink: oklch(69.02% 0.277 332.77);[m
+[31m-    --hot-red: oklch(61.42% 0.238 15.34);[m
+[31m-    --orange-red: oklch(63.32% 0.24 31.68);[m
+[31m-[m
+[31m-    --gray-900: oklch(19.37% 0.006 300.98);[m
+[31m-    --gray-700: oklch(36.98% 0.014 302.71);[m
+[31m-    --gray-400: oklch(70.9% 0.015 304.04);[m
+[31m-[m
+[31m-    --red-to-pink-to-purple-vertical-gradient: linear-gradient([m
+[31m-      180deg,[m
+[31m-      var(--orange-red) 0%,[m
+[31m-      var(--vivid-pink) 50%,[m
+[31m-      var(--electric-violet) 100%[m
+[31m-    );[m
+[31m-[m
+[31m-    --red-to-pink-to-purple-horizontal-gradient: linear-gradient([m
+[31m-      90deg,[m
+[31m-      var(--orange-red) 0%,[m
+[31m-      var(--vivid-pink) 50%,[m
+[31m-      var(--electric-violet) 100%[m
+[31m-    );[m
+[31m-[m
+[31m-    --pill-accent: var(--bright-blue);[m
+[31m-[m
+[31m-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,[m
+[31m-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",[m
+[31m-      "Segoe UI Symbol";[m
+[31m-    box-sizing: border-box;[m
+[31m-    -webkit-font-smoothing: antialiased;[m
+[31m-    -moz-osx-font-smoothing: grayscale;[m
+[31m-  }[m
+[31m-[m
+[31m-  h1 {[m
+[31m-    font-size: 3.125rem;[m
+[31m-    color: var(--gray-900);[m
+[31m-    font-weight: 500;[m
+[31m-    line-height: 100%;[m
+[31m-    letter-spacing: -0.125rem;[m
+[31m-    margin: 0;[m
+[31m-    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,[m
+[31m-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",[m
+[31m-      "Segoe UI Symbol";[m
+[31m-  }[m
+[31m-[m
+[31m-  p {[m
+[31m-    margin: 0;[m
+[31m-    color: var(--gray-700);[m
+[31m-  }[m
+[31m-[m
+[31m-  main {[m
+[31m-    width: 100%;[m
+[31m-    min-height: 100%;[m
+[31m-    display: flex;[m
+[31m-    justify-content: center;[m
+[31m-    align-items: center;[m
+[31m-    padding: 1rem;[m
+[31m-    box-sizing: inherit;[m
+[31m-    position: relative;[m
+[31m-  }[m
+[31m-[m
+[31m-  .angular-logo {[m
+[31m-    max-width: 9.2rem;[m
+[31m-  }[m
+[31m-[m
+[31m-  .content {[m
+[31m-    display: flex;[m
+[31m-    justify-content: space-around;[m
+[31m-    width: 100%;[m
+[31m-    max-width: 700px;[m
+[31m-    margin-bottom: 3rem;[m
+[31m-  }[m
+[31m-[m
+[31m-  .content h1 {[m
+[31m-    margin-top: 1.75rem;[m
+[31m-  }[m
+[31m-[m
+[31m-  .content p {[m
+[31m-    margin-top: 1.5rem;[m
+[31m-  }[m
+[31m-[m
+[31m-  .divider {[m
+[31m-    width: 1px;[m
+[31m-    background: var(--red-to-pink-to-purple-vertical-gradient);[m
+[31m-    margin-inline: 0.5rem;[m
+[31m-  }[m
+[31m-[m
+[31m-  .pill-group {[m
+[31m-    display: flex;[m
+[31m-    flex-direction: column;[m
+[31m-    align-items: start;[m
+[31m-    flex-wrap: wrap;[m
+[31m-    gap: 1.25rem;[m
+[31m-  }[m
+[31m-[m
+[31m-  .pill {[m
+[31m-    display: flex;[m
+[31m-    align-items: center;[m
+[31m-    --pill-accent: var(--bright-blue);[m
+[31m-    background: color-mix(in srgb, var(--pill-accent) 5%, transparent);[m
+[31m-    color: var(--pill-accent);[m
+[31m-    padding-inline: 0.75rem;[m
+[31m-    padding-block: 0.375rem;[m
+[31m-    border-radius: 2.75rem;[m
+[31m-    border: 0;[m
+[31m-    transition: background 0.3s ease;[m
+[31m-    font-family: var(--inter-font);[m
+[31m-    font-size: 0.875rem;[m
+[31m-    font-style: normal;[m
+[31m-    font-weight: 500;[m
+[31m-    line-height: 1.4rem;[m
+[31m-    letter-spacing: -0.00875rem;[m
+[31m-    text-decoration: none;[m
+[31m-  }[m
+[31m-[m
+[31m-  .pill:hover {[m
+[31m-    background: color-mix(in srgb, var(--pill-accent) 15%, transparent);[m
+[31m-  }[m
+[31m-[m
+[31m-  .pill-group .pill:nth-child(6n + 1) {[m
+[31m-    --pill-accent: var(--bright-blue);[m
+[31m-  }[m
+[31m-  .pill-group .pill:nth-child(6n + 2) {[m
+[31m-    --pill-accent: var(--french-violet);[m
+[31m-  }[m
+[31m-  .pill-group .pill:nth-child(6n + 3),[m
+[31m-  .pill-group .pill:nth-child(6n + 4),[m
+[31m-  .pill-group .pill:nth-child(6n + 5) {[m
+[31m-    --pill-accent: var(--hot-red);[m
+[31m-  }[m
+[31m-[m
+[31m-  .pill-group svg {[m
+[31m-    margin-inline-start: 0.25rem;[m
+[31m-  }[m
+[31m-[m
+[31m-  .social-links {[m
+[31m-    display: flex;[m
+[31m-    align-items: center;[m
+[31m-    gap: 0.73rem;[m
+[31m-    margin-top: 1.5rem;[m
+[31m-  }[m
+[31m-[m
+[31m-  .social-links path {[m
+[31m-    transition: fill 0.3s ease;[m
+[31m-    fill: var(--gray-400);[m
+[31m-  }[m
+[31m-[m
+[31m-  .social-links a:hover svg path {[m
+[31m-    fill: var(--gray-900);[m
+[31m-  }[m
+[31m-[m
+[31m-  @media screen and (max-width: 650px) {[m
+[31m-    .content {[m
+[31m-      flex-direction: column;[m
+[31m-      width: max-content;[m
+[31m-    }[m
+[31m-[m
+[31m-    .divider {[m
+[31m-      height: 1px;[m
+[31m-      width: 100%;[m
+[31m-      background: var(--red-to-pink-to-purple-horizontal-gradient);[m
+[31m-      margin-block: 1.5rem;[m
+[31m-    }[m
+[31m-  }[m
+[31m-</style>[m
+[31m-[m
+[31m-<main class="main">[m
+[31m-  <div class="content">[m
+[31m-    <div class="left-side">[m
+[31m-      <svg[m
+[31m-        xmlns="http://www.w3.org/2000/svg"[m
+[31m-        viewBox="0 0 982 239"[m
+[31m-        fill="none"[m
+[31m-        class="angular-logo"[m
+[31m-      >[m
+[31m-        <g clip-path="url(#a)">[m
+[31m-          <path[m
+[31m-            fill="url(#b)"[m
+[31m-            d="M388.676 191.625h30.849L363.31 31.828h-35.758l-56.215 159.797h30.848l13.174-39.356h60.061l13.256 39.356Zm-65.461-62.675 21.602-64.311h1.227l21.602 64.311h-44.431Zm126.831-7.527v70.202h-28.23V71.839h27.002v20.374h1.392c2.782-6.71 7.2-12.028 13.255-15.956 6.056-3.927 13.584-5.89 22.503-5.89 8.264 0 15.465 1.8 21.684 5.318 6.137 3.518 10.964 8.673 14.319 15.382 3.437 6.71 5.074 14.81 4.992 24.383v76.175h-28.23v-71.92c0-8.019-2.046-14.237-6.219-18.819-4.173-4.5-9.819-6.791-17.102-6.791-4.91 0-9.328 1.063-13.174 3.272-3.846 2.128-6.792 5.237-9.001 9.328-2.046 4.009-3.191 8.918-3.191 14.728ZM589.233 239c-10.147 0-18.82-1.391-26.103-4.091-7.282-2.7-13.092-6.382-17.511-10.964-4.418-4.582-7.528-9.655-9.164-15.219l25.448-6.136c1.145 2.372 2.782 4.663 4.991 6.954 2.209 2.291 5.155 4.255 8.837 5.81 3.683 1.554 8.428 2.291 14.074 2.291 8.019 0 14.647-1.964 19.884-5.81 5.237-3.845 7.856-10.227 7.856-19.064v-22.665h-1.391c-1.473 2.946-3.601 5.892-6.383 9.001-2.782 3.109-6.464 5.645-10.965 7.691-4.582 2.046-10.228 3.109-17.101 3.109-9.165 0-17.511-2.209-25.039-6.545-7.446-4.337-13.42-10.883-17.757-19.474-4.418-8.673-6.628-19.473-6.628-32.565 0-13.091 2.21-24.301 6.628-33.383 4.419-9.082 10.311-15.955 17.839-20.7 7.528-4.746 15.874-7.037 25.039-7.037 7.037 0 12.846 1.145 17.347 3.518 4.582 2.373 8.182 5.236 10.883 8.51 2.7 3.272 4.746 6.382 6.137 9.327h1.554v-19.8h27.821v121.749c0 10.228-2.454 18.737-7.364 25.447-4.91 6.709-11.538 11.7-20.048 15.055-8.509 3.355-18.165 4.991-28.884 4.991Zm.245-71.266c5.974 0 11.047-1.473 15.302-4.337 4.173-2.945 7.446-7.118 9.573-12.519 2.21-5.482 3.274-12.027 3.274-19.637 0-7.609-1.064-14.155-3.274-19.8-2.127-5.646-5.318-10.064-9.491-13.255-4.174-3.11-9.329-4.746-15.384-4.746s-11.537 1.636-15.792 4.91c-4.173 3.272-7.365 7.772-9.492 13.418-2.128 5.727-3.191 12.191-3.191 19.392 0 7.2 1.063 13.745 3.273 19.228 2.127 5.482 5.318 9.736 9.573 12.764 4.174 3.027 9.41 4.582 15.629 4.582Zm14

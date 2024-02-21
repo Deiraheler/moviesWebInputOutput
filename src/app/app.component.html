@@ -1,5 +1,12 @@
 <div class="container">
   <h1>Movie Favourites| Dmytro Severin S00243021</h1>
   <app-add-movie></app-add-movie>
-  <app-list-movies></app-list-movies>
+  <div class="row">
+    <div class="col-sm-6">
+      <app-list-movies (onSelectedMovie)="setSelectedMovie($event)"></app-list-movies>
+    </div>
+    <div class="col-sm-6">
+      <app-movie-details [movieDetails]="mySelectedMovie"></app-movie-details>
+    </div>
+  </div>
 </div>
